@@ -1,0 +1,28 @@
+{
+  "name": "concourse-tray",
+  "version": "1.0.0",
+  "description": "An Electron application to display job status in Concourse",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastienTemprado/concourse-tray.git"
+  },
+  "keywords": [
+    "electron",
+    "concourse",
+    "tray"
+  ],
+  "author": "Sébastien Temprado",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/SebastienTemprado/concourse-tray/issues"
+  },
+  "homepage": "https://github.com/SebastienTemprado/concourse-tray#readme",
+  "devDependencies": {
+    "electron": "^8.0.0"
+  }
+}
