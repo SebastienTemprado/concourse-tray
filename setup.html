@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Setup</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script type="text/javascript" src="setup.js"></script>
+  </head>
+  <body>
+    <h1>Setup</h1>
+      Server : <input id="host" type="text"/><br/>
+      Team : <input id="team" type="text"/><br/>
+      <input type="button" value="submit" onclick="submitSetup()"/><br/>
+  </body>
+</html>

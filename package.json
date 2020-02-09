@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/SebastienTemprado/concourse-tray#readme",
   "devDependencies": {
-    "electron": "^8.0.0"
+    "electron": "^8.0.0",
+    "fs": "0.0.1-security"
   }
 }
