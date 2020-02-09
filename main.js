@@ -1,4 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray, Menu } = require('electron')
+const path = require('path');
+
+let tray = null;
 
 function createWindow() {
     // Cree la fenetre du navigateur.
@@ -37,6 +40,29 @@ app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow()
     }
+})
+
+app.on('ready', () => {
+    tray = new Tray(path.join(__dirname, '/concourse-logo-red.png'));
+
+    if (process.platform === 'win32') {
+        tray.on('click', tray.popUpContextMenu);
+    }
+
+    const menu = Menu.buildFromTemplate([
+        {
+            label: 'Test',
+            click() { tray.setImage(path.join(__dirname, '/concourse-logo-green.png')); }
+        },
+        {
+            label: 'Quit',
+            click() { app.quit(); }
+        }
+    ]);
+
+    tray.setToolTip('Concourse Tray');
+    tray.setContextMenu(menu);
+
 })
 
 // In this file you can include the rest of your app's specific main process
