@@ -81,7 +81,13 @@ function createSetupWindow() {
     });
 
     win.loadFile('setup.html');
+
+    win.once('ready-to-show', () => {
+        //win.show();
+    })
 };
+
+
 
 ipcMain.on('submit-setup', (event, arg) => {
     tray.setImage(path.join(__dirname, '/concourse-logo-green.png'));
