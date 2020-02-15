@@ -42,7 +42,7 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
-    tray = new Tray(path.join(__dirname, '/concourse-logo-red.png'));
+    tray = new Tray(path.join(__dirname, '/concourse-logo-green.png'));
 
     if (process.platform === 'win32') {
         tray.on('click', tray.popUpContextMenu);
@@ -81,16 +81,11 @@ function createSetupWindow() {
     });
 
     win.loadFile('setup.html');
-
-    win.once('ready-to-show', () => {
-        //win.show();
-    })
 };
-
-
 
 ipcMain.on('submit-setup', (event, arg) => {
     tray.setImage(path.join(__dirname, '/concourse-logo-green.png'));
+    //tray = new Tray(path.join(__dirname, '/concourse-logo-green.png'));
 
     try {
         fs.writeFileSync('config.json', JSON.stringify(arg), 'utf-8');
