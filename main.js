@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, Tray } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, net, Tray } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -48,6 +48,15 @@ app.on('ready', () => {
     if (process.platform === 'win32') {
         tray.on('click', tray.popUpContextMenu);
     }
+
+    const request = net.request('https://petstore.swagger.io/v2/pet/1');
+
+    request.on('response', (response) => {
+        response.on('data', (chunk) => {
+            console.log(`BODY: ${chunk}`);
+        });
+    });
+    request.end();
 
     const menu = Menu.buildFromTemplate([
         {
