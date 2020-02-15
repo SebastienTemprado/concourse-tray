@@ -43,11 +43,8 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
-    tray = new Tray(path.join(__dirname, '/concourse-logo-green.png'));
 
-    if (process.platform === 'win32') {
-        tray.on('click', tray.popUpContextMenu);
-    }
+    initTray();
 
     const request = net.request('https://petstore.swagger.io/v2/pet/1');
 
@@ -56,8 +53,16 @@ app.on('ready', () => {
             console.log(`BODY: ${chunk}`);
         });
     });
-    request.end();
+    request.end();   
 
+});
+
+function initTray() {
+    tray = new Tray(path.join(__dirname, '/concourse-logo-green.png'));
+
+    if (process.platform === 'win32') {
+        tray.on('click', tray.popUpContextMenu);
+    }
     const menu = Menu.buildFromTemplate([
         {
             label: 'Setup',
@@ -78,8 +83,7 @@ app.on('ready', () => {
 
     tray.setToolTip('Concourse Tray');
     tray.setContextMenu(menu);
-
-});
+}
 
 // In this file you can include the rest of your app's specific main process
 // code. Vous pouvez également le mettre dans des fichiers séparés et les inclure ici.
