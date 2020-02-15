@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 let tray = null;
+let setupAlreadyOpened = false;
 
 function createMainWindow() {
     const win = new BrowserWindow({
@@ -52,7 +53,10 @@ app.on('ready', () => {
         {
             label: 'Setup',
             click() {
-                createSetupWindow();
+                if (!setupAlreadyOpened) {
+                    createSetupWindow();
+                    setupAlreadyOpened = true;
+                }
             }
         },
         {
@@ -81,12 +85,15 @@ function createSetupWindow() {
     });
 
     win.loadFile('setup.html');
+    win.on('closed', _ => {
+        setupAlreadyOpened = false;
+    });
 };
 
 ipcMain.on('submit-setup', (event, arg) => {
-    tray.setImage(path.join(__dirname, '/concourse-logo-green.png'));
+    //tray.setImage(path.join(__dirname, '/concourse-logo-green.png'));
     //tray = new Tray(path.join(__dirname, '/concourse-logo-green.png'));
-
+    setupAlreadyOpened = false;
     try {
         fs.writeFileSync('config.json', JSON.stringify(arg), 'utf-8');
     }
