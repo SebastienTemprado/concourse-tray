@@ -6,11 +6,34 @@
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <script type="text/javascript" src="setup.js"></script>
+    <link href="main.css" rel="stylesheet">
   </head>
   <body onload="initSetup();">
     <h1>Setup</h1>
-      Server : <input id="host" type="text"/><br/>
-      Team : <input id="team" type="text"/><br/>
-      <input type="button" value="submit" onclick="submitSetup()"/><br/>
+    <div class="setup-form">
+
+      <div class="row">
+        <div class="col1">
+          <span class="label">Server : </span>
+        </div>
+        <div class="col2">
+          <span class="value"><input id="host" type="text" size="40"/></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col1">
+          <span class="label">Team : </span>
+        </div>
+        <div class="col2">
+          <span class="value"><input id="team" type="text" size="40"/></span>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <input type="button" value="Save" onclick="submitSetup()"/>
+        <input type="button" value="Cancel" onclick="closeSetup()"/>
+      </div>
+    </div>
   </body>
 </html>

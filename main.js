@@ -73,8 +73,8 @@ app.on('ready', () => {
 
 function createSetupWindow() {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 650,
+        height: 300,
         webPreferences: {
             nodeIntegration: true
         }

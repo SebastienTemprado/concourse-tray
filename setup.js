@@ -16,5 +16,8 @@ function submitSetup() {
     this.close();
 };
 
+function closeSetup() {
+    this.close();
+};
 
 

@@ -1,0 +1,31 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.setup-form {
+    margin-top: 15px;
+}
+
+.row {
+    display: flex;
+}
+
+.col1 {
+    width: 20%;
+}
+
+.col2 {
+    width: 50%;
+}
+
+.label {
+
+}
+
+.value {
+
+}
+
+.actions {
+    margin-top: 15px;
+}
