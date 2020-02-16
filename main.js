@@ -47,8 +47,7 @@ app.on('ready', () => {
     config = getConfig();
     initTray();
 
-    getDataFromServer();
-
+    setInterval(getDataFromServer, 5000);
 });
 
 function initTray() {
@@ -101,7 +100,6 @@ ipcMain.on('submit-setup', (event, arg) => {
     try {
         fs.writeFileSync('config.json', JSON.stringify(arg), 'utf-8');
         config = getConfig();
-        getDataFromServer();
     }
     catch (e) {
         console.log('Failed to save the setup file !');
