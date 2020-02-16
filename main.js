@@ -47,15 +47,7 @@ app.on('ready', () => {
     config = getConfig();
     initTray();
 
-    console.log("request: " + config.host);
-    const request = net.request(config.host);
-
-    request.on('response', (response) => {
-        response.on('data', (chunk) => {
-            console.log(`BODY: ${chunk}`);
-        });
-    });
-    request.end();   
+    getDataFromServer();
 
 });
 
@@ -108,7 +100,8 @@ ipcMain.on('submit-setup', (event, arg) => {
     setupAlreadyOpened = false;
     try {
         fs.writeFileSync('config.json', JSON.stringify(arg), 'utf-8');
-
+        config = getConfig();
+        getDataFromServer();
     }
     catch (e) {
         console.log('Failed to save the setup file !');
@@ -117,4 +110,16 @@ ipcMain.on('submit-setup', (event, arg) => {
 
 function getConfig() {
     return JSON.parse(fs.readFileSync('config.json', 'utf8'));
+}
+
+function getDataFromServer() {
+    console.log("request: " + config.host);
+    const request = net.request(config.host);
+
+    request.on('response', (response) => {
+        response.on('data', (chunk) => {
+            console.log(`BODY: ${chunk}`);
+        });
+    });
+    request.end();   
 }
