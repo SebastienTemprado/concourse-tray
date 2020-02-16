@@ -4,6 +4,7 @@ const fs = require('fs');
 
 let tray = null;
 let setupAlreadyOpened = false;
+let config = {};
 
 function createMainWindow() {
     const win = new BrowserWindow({
@@ -43,10 +44,11 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
-
+    config = getConfig();
     initTray();
 
-    const request = net.request('https://petstore.swagger.io/v2/pet/1');
+    console.log("request: " + config.host);
+    const request = net.request(config.host);
 
     request.on('response', (response) => {
         response.on('data', (chunk) => {
@@ -85,9 +87,6 @@ function initTray() {
     tray.setContextMenu(menu);
 }
 
-// In this file you can include the rest of your app's specific main process
-// code. Vous pouvez également le mettre dans des fichiers séparés et les inclure ici.
-
 function createSetupWindow() {
     const win = new BrowserWindow({
         width: 650,
@@ -109,8 +108,13 @@ ipcMain.on('submit-setup', (event, arg) => {
     setupAlreadyOpened = false;
     try {
         fs.writeFileSync('config.json', JSON.stringify(arg), 'utf-8');
+
     }
     catch (e) {
         console.log('Failed to save the setup file !');
     }
 });
+
+function getConfig() {
+    return JSON.parse(fs.readFileSync('config.json', 'utf8'));
+}
