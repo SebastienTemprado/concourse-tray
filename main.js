@@ -5,9 +5,10 @@ const fs = require('fs');
 let tray = null;
 let setupAlreadyOpened = false;
 let config = {};
+let win;
 
 function createMainWindow() {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -102,7 +103,7 @@ ipcMain.on('submit-setup', (event, arg) => {
         config = getConfig();
     }
     catch (e) {
-        console.log('Failed to save the setup file !');
+        concatToContent('Failed to save the setup file !')
     }
 });
 
@@ -111,13 +112,17 @@ function getConfig() {
 }
 
 function getDataFromServer() {
-    console.log("request: " + config.host);
+    concatToContent("request: " + config.host);
     const request = net.request(config.host);
 
     request.on('response', (response) => {
         response.on('data', (chunk) => {
-            console.log(`BODY: ${chunk}`);
+            concatToContent(`BODY: ${chunk}<br/><br/>`)
         });
     });
     request.end();   
+}
+
+function concatToContent(text) {
+    win.webContents.send("concat-content", text);
 }
