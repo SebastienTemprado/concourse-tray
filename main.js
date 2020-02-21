@@ -123,6 +123,10 @@ function getDataFromServer() {
     request.end();   
 }
 
+function setContent(text) {
+    win.webContents.send("setContent", text);
+}
+
 function concatToContent(text) {
     win.webContents.send("concat-content", text);
 }
